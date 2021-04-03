@@ -1,5 +1,6 @@
 function MyArray() {
-  this.length = 0;
+  if(!new.target) return new MyArray(arguments);
+   this.length = 0;
   for (let i = 0; i < arguments.length; i++) {
     this.push(arguments[i]);
   };
@@ -93,27 +94,29 @@ function MyArrayProto() {
     });
     return this;
   }
-  this.map = function map(cb){
-    if(this.length<1) return this;
+  this.map = function map(cb) {
+    if (this.length < 1) return this;
     let newArray = [];
+    for (let i = 0; i < this.length; i++) {
+      newArray[i] = cb(this[i], i, this);
+    }
+    return new MyArray(...newArray);
 
   }
 }
 
 const arr1 = new MyArray(1, 2, 3, 4, 5);
 const arr2 = new MyArray(6, 7, 8);
+let arr3 = arr1.map(square)
+// console.log(arr3)
 
+const arr4 = MyArray(10,10)
+console.log(arr4)
 // arr.unshift(2, 3, 6);
 // arr3 = arr1.concat(arr2);
-console.log(arr1.reverse())
-
+// console.log(arr1.reverse())
 
 function square(num) {
   let result = num * num;
   return result;
 }
-
-// arr.forEach((elem, i, arr) => {
-//   console.log(elem, 'elem',i,arr,  'foreach')
-//   arr[i] = square(elem);
-// })
