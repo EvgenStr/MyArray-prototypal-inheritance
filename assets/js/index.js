@@ -23,26 +23,38 @@ function MyArrayProto() {
   };
   this.forEach = function forEach(cb) {
     for (let i = 0; i < this.length; i++) {
-      console.log(this[i],this.length,i, 'elem')
       cb(this[i], i, this);
     }
   };
-  this.isMyArray = function isMyArray(){
+  this.isMyArray = function isMyArray() {
     return this instanceof MyArray;
+  }
+  this.unshift = function unshift(...params) {
+    this.forEach((elem, i, arr) => {
+      arr[i + params.length] = elem;
+    })
+
+    for (let i = 0; i < params.length; i++) {
+      this[i] = params[i]
+    }
+
+    return this.length += params.length;
+
   }
 }
 
-
-
 const arr = new MyArray(1, 2, 3, 4, 5);
+
+arr.unshift(2, 3, 6);
+console.log(arr)
+
 
 function square(num) {
   let result = num * num;
-  console.log((num , 'swuare'));
   return result;
 }
 
-arr.forEach((elem, i, arr) => {
-  console.log(elem, 'elem',i,arr,  'foreach')
-  arr[i] = square(elem);
-})
+// arr.forEach((elem, i, arr) => {
+//   console.log(elem, 'elem',i,arr,  'foreach')
+//   arr[i] = square(elem);
+// })
