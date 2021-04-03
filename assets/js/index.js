@@ -56,14 +56,31 @@ function MyArrayProto() {
     });
     delete this[this.length];
     return result;
+  };
+  this.concat = function concat(arr) {
+    // console.log(arr, 'concat');
+    let newMyArray = [];
+    this.forEach((elem) => {
+      newMyArray.push(elem)
+    });
+    for (let i = 0; i < arr.length; i++) {
+      newMyArray.push(arr[i]);
+    }
+
+    //without create new my array
+    // for (let i = 0; i < arr.length; i++) {
+    //   this.push(arr[i]);
+    // }
+    return new MyArray(...newMyArray);
   }
 }
 
-// const arr = new MyArray(1, 2, 3, 4, 5);
-const arr = new MyArray();
+const arr1 = new MyArray(1, 2, 3, 4, 5);
+const arr2 = new MyArray(6, 7, 8);
 
 // arr.unshift(2, 3, 6);
-console.log(arr)
+arr3 = arr1.concat(arr2);
+console.log(arr3)
 
 
 function square(num) {
