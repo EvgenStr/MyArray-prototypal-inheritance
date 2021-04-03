@@ -14,22 +14,29 @@ function MyArrayProto() {
     }
     return this.length;
   };
+
   this.pop = function pop() {
     if (this.length === 0) return;
-
     const lastValue = this[this.length - 1];
     delete this[--this.length];
     return lastValue;
   };
+
   this.forEach = function forEach(cb) {
     for (let i = 0; i < this.length; i++) {
       cb(this[i], i, this);
     }
   };
+
   this.isMyArray = function isMyArray() {
     return this instanceof MyArray;
   };
+
   this.unshift = function unshift(...params) {
+    if (this.length === 0) {
+      this.push(...params);
+      return this.length;
+    }
     this.forEach((elem, i, arr) => {
       arr[i + params.length] = elem;
     });
@@ -38,20 +45,22 @@ function MyArrayProto() {
     };
     return this.length += params.length;
   };
+
   this.shift = function shift() {
-    if (this.length === 0) return this;
+    if (this.length === 0) return;
     const result = this[0];
     delete this[0];
     this.length--;
     this.forEach((elem, i, arr) => {
-      arr[i] = arr[i+1];
+      arr[i] = arr[i + 1];
     });
     delete this[this.length];
     return result;
   }
 }
 
-const arr = new MyArray(1, 2, 3, 4, 5);
+// const arr = new MyArray(1, 2, 3, 4, 5);
+const arr = new MyArray();
 
 // arr.unshift(2, 3, 6);
 console.log(arr)
