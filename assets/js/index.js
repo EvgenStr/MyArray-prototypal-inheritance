@@ -9,6 +9,7 @@ function MyArray() {
 MyArray.prototype = new MyArrayProto();
 
 function MyArrayProto() {
+  if(!new.target) return new MyArrayProto();
   this.push = function push() {
     for (let i = 0; i < arguments.length; i++) {
       this[this.length++] = arguments[i];
