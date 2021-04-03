@@ -1,6 +1,6 @@
 function MyArray() {
-  if(!new.target) return new MyArray(arguments);
-   this.length = 0;
+  if (!new.target) return new MyArray(arguments);
+  this.length = 0;
   for (let i = 0; i < arguments.length; i++) {
     this.push(arguments[i]);
   };
@@ -9,7 +9,7 @@ function MyArray() {
 MyArray.prototype = new MyArrayProto();
 
 function MyArrayProto() {
-  if(!new.target) return new MyArrayProto();
+  if (!new.target) return new MyArrayProto();
   this.push = function push() {
     for (let i = 0; i < arguments.length; i++) {
       this[this.length++] = arguments[i];
@@ -76,7 +76,7 @@ function MyArrayProto() {
     for (let i = 0; i < params[0].length; i++) {
       newMyArray.push(params[0][i]);
     }
-    //without create new my array
+    //without create new myArray
     // for (let i = 0; i < params.length; i++) {
     //   this.push(params[i]);
     // }
@@ -111,7 +111,7 @@ const arr2 = new MyArray(6, 7, 8);
 let arr3 = arr1.map(square)
 // console.log(arr3)
 
-const arr4 = MyArray(10,10)
+const arr4 = MyArray(10, 10)
 console.log(arr4)
 // arr.unshift(2, 3, 6);
 // arr3 = arr1.concat(arr2);
