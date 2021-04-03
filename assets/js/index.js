@@ -93,6 +93,11 @@ function MyArrayProto() {
     });
     return this;
   }
+  this.map = function map(cb){
+    if(this.length<1) return this;
+    let newArray = [];
+
+  }
 }
 
 const arr1 = new MyArray(1, 2, 3, 4, 5);
