@@ -2,7 +2,7 @@ function MyArray() {
   this.length = 0;
   for (let i = 0; i < arguments.length; i++) {
     this.push(arguments[i]);
-  }
+  };
 }
 
 MyArray.prototype = new MyArrayProto();
@@ -28,8 +28,8 @@ function MyArrayProto() {
     }
   };
 
-  this.isMyArray = function isMyArray() {
-    return this instanceof MyArray;
+  this.isMyArray = function isMyArray(item) {
+    return item instanceof MyArray;
   };
 
   this.unshift = function unshift(...params) {
@@ -57,21 +57,41 @@ function MyArrayProto() {
     delete this[this.length];
     return result;
   };
-  this.concat = function concat(arr) {
-    // console.log(arr, 'concat');
+
+  this.concat = function concat(...params) {
     let newMyArray = [];
+
     this.forEach((elem) => {
       newMyArray.push(elem)
     });
-    for (let i = 0; i < arr.length; i++) {
-      newMyArray.push(arr[i]);
-    }
 
+    if (!this.isMyArray(params[0])) {
+      for (let i = 0; i < params.length; i++)
+        newMyArray.push(params[i]);
+      return new MyArray(...newMyArray);
+    };
+
+    for (let i = 0; i < params[0].length; i++) {
+      newMyArray.push(params[0][i]);
+    }
     //without create new my array
-    // for (let i = 0; i < arr.length; i++) {
-    //   this.push(arr[i]);
+    // for (let i = 0; i < params.length; i++) {
+    //   this.push(params[i]);
     // }
     return new MyArray(...newMyArray);
+  };
+
+  this.reverse = function reverse() {
+    if (this.length <= 1) return this;
+    let newArray = [];
+    this.forEach((elem) => {
+      newArray.push(elem)
+    });
+    console.log(newArray, 'new');
+    this.forEach((elem, i, arr) => {
+      arr[arr.length - i - 1] = newArray[i];
+    });
+    return this;
   }
 }
 
@@ -79,8 +99,8 @@ const arr1 = new MyArray(1, 2, 3, 4, 5);
 const arr2 = new MyArray(6, 7, 8);
 
 // arr.unshift(2, 3, 6);
-arr3 = arr1.concat(arr2);
-console.log(arr3)
+// arr3 = arr1.concat(arr2);
+console.log(arr1.reverse())
 
 
 function square(num) {
