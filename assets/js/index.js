@@ -4,9 +4,13 @@ function MyArray() {
   for (let i = 0; i < arguments.length; i++) {
     this.push(arguments[i]);
   };
+
 }
 
 MyArray.prototype = new MyArrayProto();
+MyArray.isMyArray = function isMyArray(item) {
+  return item instanceof MyArray;
+};
 
 function MyArrayProto() {
   if (!new.target) return new MyArrayProto();
@@ -30,9 +34,9 @@ function MyArrayProto() {
     }
   };
 
-  this.isMyArray = function isMyArray(item) {
-    return item instanceof MyArray;
-  };
+  // this.isMyArray = function isMyArray(item) {
+  //   return item instanceof MyArray;
+  // };
 
   this.unshift = function unshift(...params) {
     if (this.length === 0) {
@@ -67,7 +71,7 @@ function MyArrayProto() {
       newMyArray.push(elem)
     });
 
-    if (!this.isMyArray(params[0])) {
+    if (!MyArray.isMyArray(params[0])) {
       for (let i = 0; i < params.length; i++)
         newMyArray.push(params[i]);
       return new MyArray(...newMyArray);
@@ -89,7 +93,6 @@ function MyArrayProto() {
     this.forEach((elem) => {
       newArray.push(elem)
     });
-    console.log(newArray, 'new');
     this.forEach((elem, i, arr) => {
       arr[arr.length - i - 1] = newArray[i];
     });
