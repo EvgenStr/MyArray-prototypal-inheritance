@@ -97,7 +97,8 @@ function MyArrayProto() {
       arr[arr.length - i - 1] = newArray[i];
     });
     return this;
-  }
+  };
+  
   this.map = function map(cb) {
     if (this.length < 1) return this;
     let newArray = [];
@@ -105,7 +106,6 @@ function MyArrayProto() {
       newArray[i] = cb(this[i], i, this);
     }
     return new MyArray(...newArray);
-
   }
 }
 
