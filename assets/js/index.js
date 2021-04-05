@@ -32,11 +32,9 @@ function MyArrayProto() {
       cb(this[i], i, this);
     }
   };
-
   // this.isMyArray = function isMyArray(item) {
   //   return item instanceof MyArray;
   // };
-
   this.unshift = function unshift(...params) {
     if (this.length === 0) {
       this.push(...params);
@@ -102,13 +100,39 @@ function MyArrayProto() {
   this.map = function map(cb) {
     let newArray = new MyArray();
     for (let i = 0; i < this.length; i++) {
-      newArray[i] = cb(this[i], i, this);
-      newArray.length++;
+      newArray.push(cb(this[i], i, this));
     }
     return newArray;
   };
+  this.some = function some(cb) {
+    for (let i = 0; i < this.length; i++) {
+      if (cb(this[i], i, this)) {
+        return true;
+      }
+    }
+    return false;
+  };
+  this.every = function every(cb) {
+    for (let i = 0; i < this.length; i++) {
+      if (!cb(this[i], i, this)) {
+        return false;
+      }
+    }
+    return true;
+  };
+  this.filter = function filter(cb) {
+    const newMyArray = new MyArray();
+    for (let i = 0; i < this.length; i++) {
+      if (!cb(this[i], i, this)) {
+        newMyArray.push(this[i]);
+      }
+    }
+    return newMyArray;
+  };
 };
-
+console.log(arr1.filter((elem) => {
+  if (elem % 2-1) return true;
+}));
 
 const arr1 = new MyArray(1, 2, 3, 4, 5);
 const arr2 = new MyArray(6, 7, 8);
@@ -120,7 +144,10 @@ const arr4 = MyArray(10, 10)
 // console.log(arr4)
 arr5.unshift(1, 2, 3, 4);
 // arr3 = arr1.concat(arr2);
-console.log(arr5)
+console.log(arr1.filter((elem) => {
+  if (elem % 2-1) return true;
+}));
+
 
 function square(num) {
   let result = num * num;
