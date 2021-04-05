@@ -64,27 +64,28 @@ function MyArrayProto() {
   };
 
   this.concat = function concat(...params) {
-    let newMyArray = [];
+    let newMyArray = new MyArray();
 
     this.forEach((elem) => {
       newMyArray.push(elem)
     });
 
-    if (!MyArray.isMyArray(params[0])) {
-      for (let i = 0; i < params.length; i++)
+    for (let i = 0; i < params.length; i++) {
+      if (!MyArray.isMyArray(params[i])) {
         newMyArray.push(params[i]);
-      return new MyArray(...newMyArray);
+        continue;
+      }
+      for (let k = 0; k < params[i].length; k++) {
+        newMyArray.push(params[i][k]);
+      }
     };
-
-    for (let i = 0; i < params[0].length; i++) {
-      newMyArray.push(params[0][i]);
-    }
     //without create new myArray
     // for (let i = 0; i < params.length; i++) {
     //   this.push(params[i]);
     // }
-    return new MyArray(...newMyArray);
+    return newMyArray;
   };
+
 
   this.reverse = function reverse() {
     if (this.length <= 1) return this;
@@ -99,14 +100,15 @@ function MyArrayProto() {
   };
 
   this.map = function map(cb) {
-    
     let newArray = new MyArray();
     for (let i = 0; i < this.length; i++) {
       newArray[i] = cb(this[i], i, this);
+      newArray.length++;
     }
     return newArray;
-  }
-}
+  };
+};
+
 
 const arr1 = new MyArray(1, 2, 3, 4, 5);
 const arr2 = new MyArray(6, 7, 8);
