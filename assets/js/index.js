@@ -130,9 +130,6 @@ function MyArrayProto() {
     return newMyArray;
   };
 };
-console.log(arr1.filter((elem) => {
-  if (elem % 2-1) return true;
-}));
 
 const arr1 = new MyArray(1, 2, 3, 4, 5);
 const arr2 = new MyArray(6, 7, 8);
