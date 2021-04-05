@@ -71,7 +71,7 @@ function MyArrayProto() {
     });
 
     for (let i = 0; i < params.length; i++) {
-      if (!MyArray.isMyArray(params[i])) {
+      if (!params[i].length) {
         newMyArray.push(params[i]);
         continue;
       }
