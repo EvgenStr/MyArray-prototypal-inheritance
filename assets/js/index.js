@@ -99,12 +99,12 @@ function MyArrayProto() {
   };
 
   this.map = function map(cb) {
-    if (this.length < 1) return this;
-    let newArray = [];
+    
+    let newArray = new MyArray();
     for (let i = 0; i < this.length; i++) {
       newArray[i] = cb(this[i], i, this);
     }
-    return new MyArray(...newArray);
+    return newArray;
   }
 }
 
