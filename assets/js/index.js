@@ -133,16 +133,16 @@ function MyArrayProto() {
 
 const arr1 = new MyArray(1, 2, 3, 4, 5);
 const arr2 = new MyArray(6, 7, 8);
-let arr3 = arr1.map(square)
+const arr4 = MyArray(10, 10);
+let arr3 = arr1.map(square);
 let arr5 = MyArray(2, 3, 4, 5, 6, 7, 8, 9);
 let arr6 = new MyArray(0, 1);
 
-const arr4 = MyArray(10, 10)
 // console.log(arr4)
 arr5.unshift(1, 2, 3, 4);
 // arr3 = arr1.concat(arr2);
 console.log(arr1.filter((elem) => {
-  if (elem % 2-1) return true;
+  if (elem % 2 - 1) return true;
 }));
 
 
