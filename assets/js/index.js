@@ -1,10 +1,7 @@
 function MyArray() {
   if (!new.target) return new MyArray(...arguments);
   this.length = 0;
-  for (let i = 0; i < arguments.length; i++) {
-    this.push(arguments[i]);
-    // this.push(...arguments)
-  };
+  this.push(...arguments)
 }
 
 MyArray.prototype = new MyArrayProto();
