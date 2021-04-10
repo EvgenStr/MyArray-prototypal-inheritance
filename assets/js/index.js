@@ -3,6 +3,7 @@ function MyArray() {
   this.length = 0;
   for (let i = 0; i < arguments.length; i++) {
     this.push(arguments[i]);
+    // this.push(...arguments)
   };
 }
 
